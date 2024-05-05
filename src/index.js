@@ -5,6 +5,8 @@ import express from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { connectDB } from './db.js';
+import User from './model/user.js';
+import { generateToken } from './utils/generate-token.js';
 
 const app = express();
 app.use(express.json());
@@ -26,6 +28,24 @@ export const asyncTest = asyncHandler(async (req, res) => {
 	res.send(data);
 });
 
+export const loginUser = asyncHandler(async (req, res) => {
+	const { email, password } = req.body;
+	const user = await User.findOne({ email });
+	if (user && (await user.matchPassword(password))) {
+		generateToken(res, user._id);
+		res.json({
+			_id: user._id,
+			name: user.name,
+			email: user.email,
+			role: user.role,
+			status: user.status,
+		});
+	} else {
+		res.status(401);
+		throw new Error('Invalid email or password');
+	}
+});
+
 app.get('/', (req, res) => {
 	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync('B4c0//', salt);
@@ -37,6 +57,8 @@ app.get('/', (req, res) => {
 
 app.get('/check', asyncTest);
 // app.get('/check', (req, res) => res.send(1));
+
+app.post('/login', loginUser);
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server started on port ${process.env.PORT}`);
