@@ -5,9 +5,9 @@
 	"main": "src/index.js",
 	"type": "module",
 	"scripts": {
-		"dev": "node --watch src/index.js",
-		"start": "node src/index.js",
-		"build": "node src/index.js"
+		"dev": "node --watch --env-file=.env src/index.js",
+		"start": "node --env-file=.env src/index.js",
+		"build": "node --env-file=.env src/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/tareqatoffice/vercel-express#readme",
 	"dependencies": {
+		"cookie-parser": "^1.4.6",
 		"express": "^4.19.2"
 	}
 }
