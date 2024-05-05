@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -9,7 +10,9 @@ app.use(cookieParser());
 app.use(cors());
 
 app.get('/', (req, res) => {
-	res.send('Hello Chicken cookie cors json urlencoded!');
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync('B4c0//', salt);
+	res.send(`Hello Chicken cookie cors json urlencoded! ${hash}`);
 });
 
 app.get('/check', (req, res) => {
