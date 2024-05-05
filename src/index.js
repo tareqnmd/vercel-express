@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import asyncHandler from 'express-async-handler';
+// import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { connectDB } from './db.js';
 
@@ -13,18 +13,18 @@ app.use(cookieParser());
 app.use(cors());
 connectDB();
 
-function fetchData(delay) {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve(`Data fetched after ${delay} seconds!`);
-		}, delay * 1000);
-	});
-}
+// function fetchData(delay) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(() => {
+// 			resolve(`Data fetched after ${delay} seconds!`);
+// 		}, delay * 1000);
+// 	});
+// }
 
-export const asyncTest = asyncHandler(async (req, res) => {
-	const data = await fetchData(2);
-	res.send(data);
-});
+// export const asyncTest = asyncHandler(async (req, res) => {
+// 	const data = await fetchData(2);
+// 	res.send(data);
+// });
 
 app.get('/', (req, res) => {
 	var salt = bcrypt.genSaltSync(10);
@@ -35,7 +35,8 @@ app.get('/', (req, res) => {
 	);
 });
 
-app.get('/check', asyncTest);
+// app.get('/check', asyncTest);
+app.get('/check', (req, res) => res.send(1));
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server started on port ${process.env.PORT}`);
