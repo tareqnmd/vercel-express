@@ -1,26 +1,28 @@
 {
-  "name": "vercel-express",
-  "version": "1.0.0",
-  "description": "vercel test",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tareqatoffice/vercel-express.git"
-  },
-  "keywords": [
-    "vercel",
-    "express"
-  ],
-  "author": "Tareq",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tareqatoffice/vercel-express/issues"
-  },
-  "homepage": "https://github.com/tareqatoffice/vercel-express#readme",
-  "dependencies": {
-    "express": "^4.19.2"
-  }
+	"name": "vercel-express",
+	"version": "1.0.0",
+	"description": "vercel test",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"dev": "node --watch index.js",
+		"start": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tareqatoffice/vercel-express.git"
+	},
+	"keywords": [
+		"vercel",
+		"express"
+	],
+	"author": "Tareq",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/tareqatoffice/vercel-express/issues"
+	},
+	"homepage": "https://github.com/tareqatoffice/vercel-express#readme",
+	"dependencies": {
+		"express": "^4.19.2"
+	}
 }
