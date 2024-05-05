@@ -11,3 +11,5 @@ app.get('/check', (req, res) => {
 });
 
 app.listen(3001);
+
+export default app;
