@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export const connectDB = async () => {
 	try {
 		const conn = await mongoose.connect(
-			`mongodb+srv://tareqnmd:1Nov96mD32mongo@cluster0.ndanq8m.mongodb.net?retryWrites=true&w=majority`
+			`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.ndanq8m.mongodb.net?retryWrites=true&w=majority`
 		);
 		console.log(`Database Connected on ${conn.connection.port}`);
 	} catch (err) {
