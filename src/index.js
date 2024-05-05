@@ -30,7 +30,9 @@ app.get('/', (req, res) => {
 	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync('B4c0//', salt);
 	var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
-	res.send(`Hello Chicken cookie cors json urlencoded! ${hash} - ${token}`);
+	res.send(
+		`Hello Chicken cookie cors json urlencoded! mongo async ${hash} - ${token}`
+	);
 });
 
 app.get('/check', asyncTest);
