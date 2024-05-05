@@ -4,12 +4,14 @@ import cors from 'cors';
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
+import { connectDB } from './db.js';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
+connectDB();
 
 function fetchData(delay) {
 	return new Promise((resolve, reject) => {
