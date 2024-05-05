@@ -11,8 +11,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
+function fetchData(delay) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve(`Data fetched after ${delay} seconds!`);
+		}, delay * 1000);
+	});
+}
+
 export const asyncTest = asyncHandler(async (req, res) => {
-	res.send('Hello Check!');
+	const data = await fetchData(2);
+	res.send(data);
 });
 
 app.get('/', (req, res) => {
