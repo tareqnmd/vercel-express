@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "node --watch --env-file=.env src/index.js",
 		"start": "node --env-file=.env src/index.js",
-		"build": "node --env-file=.env src/{}}.js"
+		"build": "node --env-file=.env src/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -30,7 +30,6 @@
 		"express": "^4.19.2",
 		"express-async-handler": "^1.2.0",
 		"jsonwebtoken": "^9.0.2",
-		"mongodb": "^6.6.0",
 		"mongoose": "^8.3.3"
 	}
 }
