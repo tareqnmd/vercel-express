@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,8 @@ app.use(cors());
 app.get('/', (req, res) => {
 	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync('B4c0//', salt);
-	res.send(`Hello Chicken cookie cors json urlencoded! ${hash}`);
+	var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+	res.send(`Hello Chicken cookie cors json urlencoded! ${hash} - ${token}`);
 });
 
 app.get('/check', (req, res) => {
