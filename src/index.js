@@ -1,12 +1,8 @@
-import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import asyncHandler from 'express-async-handler';
-import jwt from 'jsonwebtoken';
 import { connectDB } from './db.js';
-import User from './model/user.js';
-import { generateToken } from './utils/generate-token.js';
+import routes from './routes/index.js';
 
 const app = express();
 app.use(express.json());
@@ -15,50 +11,7 @@ app.use(cookieParser());
 app.use(cors());
 connectDB();
 
-function fetchData(delay) {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve(`Data fetched after ${delay} seconds!`);
-		}, delay * 1000);
-	});
-}
-
-export const asyncTest = asyncHandler(async (req, res) => {
-	const data = await fetchData(2);
-	res.send(data);
-});
-
-export const loginUser = asyncHandler(async (req, res) => {
-	const { email, password } = req.body;
-	const user = await User.findOne({ email });
-	if (user && (await user.matchPassword(password))) {
-		generateToken(res, user._id);
-		res.json({
-			_id: user._id,
-			name: user.name,
-			email: user.email,
-			role: user.role,
-			status: user.status,
-		});
-	} else {
-		res.status(401);
-		throw new Error('Invalid email or password');
-	}
-});
-
-app.get('/', (req, res) => {
-	var salt = bcrypt.genSaltSync(10);
-	var hash = bcrypt.hashSync('B4c0//', salt);
-	var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
-	res.send(
-		`Hello Chicken cookie cors json urlencoded! mongo async ${hash} - ${token}`
-	);
-});
-
-app.get('/check', asyncTest);
-// app.get('/check', (req, res) => res.send(1));
-
-app.post('/login', loginUser);
+routes(app);
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server started on port ${process.env.PORT}`);
